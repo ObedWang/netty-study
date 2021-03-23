@@ -1,4 +1,4 @@
-package cn.web.netty.study.netty;
+package cn.web.netty.study.netty.stick;
 
 import cn.web.netty.study.nio.TimeClientHandle;
 import io.netty.buffer.ByteBuf;
@@ -15,17 +15,21 @@ import java.util.logging.Logger;
  */
 public class TimeClientHandler extends ChannelInboundHandlerAdapter {
     private static final Logger logger = Logger.getLogger(TimeClientHandle.class.getName());
-    private final ByteBuf firstMessage;
+    private int count;
+    private byte[] req;
 
     public TimeClientHandler() {
-        byte[] req = "QUERY TIME ORDER".getBytes();
-        firstMessage = Unpooled.buffer(req.length);
-        firstMessage.writeBytes(req);
+        this.req = "QUERY TIME ORDER".getBytes();
     }
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) {
-        ctx.writeAndFlush(firstMessage);
+        ByteBuf message = null;
+        for (int i = 0; i < 100; i++) {
+            message = Unpooled.buffer(req.length);
+            message.writeBytes(req);
+            ctx.writeAndFlush(message);
+        }
     }
 
     @Override
@@ -34,7 +38,7 @@ public class TimeClientHandler extends ChannelInboundHandlerAdapter {
         byte[] req = new byte[buf.readableBytes()];
         buf.readBytes(req);
         String body = new String(req, StandardCharsets.UTF_8);
-        System.out.println("Now is : " + body);
+        System.out.println("Now is : " + body + " ; the counter is : " + ++count);
         ctx.close();
     }
 

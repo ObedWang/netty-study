@@ -1,4 +1,4 @@
-package cn.web.netty.study.netty;
+package cn.web.netty.study.netty.stick;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
