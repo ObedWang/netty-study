@@ -1,4 +1,4 @@
-package cn.web.netty.study.netty.stick;
+package cn.web.netty.study.time.stick;
 
 
 import io.netty.buffer.ByteBuf;

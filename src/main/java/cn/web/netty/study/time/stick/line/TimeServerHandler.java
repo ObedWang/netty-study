@@ -1,4 +1,4 @@
-package cn.web.netty.study.netty.stick.deal;
+package cn.web.netty.study.time.stick.line;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
